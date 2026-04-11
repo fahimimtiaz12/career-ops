@@ -145,7 +145,7 @@ async function generatePDF() {
     /url\(['"]?\.\/fonts\//g,
     `url('file://${fontsDir}/`
   );
-
+  // Close any unclosed quotes from the replacement (handles all font formats)
   html = html.replace(
     /file:\/\/([^'")]+)\.(woff2?|ttf|otf)['"]?\)/g,
     `file://$1.$2')`
@@ -160,17 +160,19 @@ async function generatePDF() {
   }
 
   const browser = await chromium.launch({ headless: true });
-
   try {
     const page = await browser.newPage();
 
+    // Set content with file base URL for any relative resources
     await page.setContent(html, {
       waitUntil: 'networkidle',
       baseURL: `file://${dirname(inputPath)}/`,
     });
 
+    // Wait for fonts to load
     await page.evaluate(() => document.fonts.ready);
 
+    // Generate PDF
     const pdfBuffer = await page.pdf({
       format: format,
       printBackground: true,
