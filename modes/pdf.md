@@ -77,6 +77,7 @@ Reemplazar los placeholders `{{...}}` con contenido personalizado:
 | `{{LANG}}` | `en` o `es` |
 | `{{PAGE_WIDTH}}` | `8.5in` (letter) o `210mm` (A4) |
 | `{{NAME}}` | (from profile.yml) |
+| `{{PHONE}}` | (from profile.yml — include with its separator only when `profile.yml` has a non-empty `phone` value; omit both `<span>` and `<span class="separator">` otherwise) |
 | `{{EMAIL}}` | (from profile.yml) |
 | `{{LINKEDIN_URL}}` | [from profile.yml] |
 | `{{LINKEDIN_DISPLAY}}` | [from profile.yml] |
